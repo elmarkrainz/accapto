@@ -107,9 +107,9 @@ public class ScreenTemplating {
 
 		
 		
-		// create activixy -done
-		// create xml layout -done
-		// add Manifest entry - done
+		// create activixy -
+		// create xml layout -
+		// add Manifest entry - 
 
 		list = screen.getContent();
 

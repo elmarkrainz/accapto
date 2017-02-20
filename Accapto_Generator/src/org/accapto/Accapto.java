@@ -17,34 +17,29 @@ import org.accapto.tool.ModelParser;
 public class Accapto {
 
 	public static void main(String[] args) {
-		
-		
-	InputParser inputParser = new InputParser(args);
-		
-		File inputFile = inputParser.getInputFile(); 
+
+		InputParser inputParser = new InputParser(args);
+
+		File inputFile = inputParser.getInputFile();
 		Logger logger = inputParser.getLogger();
-				
 
 		// Parse XML File and create Java Model
 		if (inputFile != null) {
 			ModelParser parser = new ModelParser(inputFile, logger);
 			parser.parseDSL();
+
+			if (parser.getApp() != null) {
+
+				// create Scaffold
+				AppScaffolder scaffold = new AppScaffolder(parser.getApp(),
+						logger);// , inputParser.getOutputArg());
+				scaffold.generate();
 		
-			
-			if (parser.getApp()!=null){
-			
-		
-			//create Scaffold
-			AppScaffolder scaffold = new AppScaffolder(parser.getApp(), logger);//  , inputParser.getOutputArg());
-			scaffold.generate();
-			}
-			else{
+			} else {
 				logger.log(" app model is not loaded");
 			}
 		}
 
-
-	
 	}
 
 }

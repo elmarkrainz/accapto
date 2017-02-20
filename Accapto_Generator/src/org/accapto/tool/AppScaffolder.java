@@ -17,13 +17,15 @@ import org.accapto.model.AppType;
 import org.accapto.model.ScreenType;
 
 /**
- * Create Scaffold for android Gradle Project
+ * Create Scaffold for android Gradle Project 
  * 
  * @author EKrainz
  *
  */
 public class AppScaffolder {
 
+	
+	// TODO: setting config
 	final static String SETTINGS_GRADLE = "settings.gradle";
 
 	// final static String SETTINGS_GRADLE_text = "include ':app'";
@@ -48,8 +50,6 @@ public class AppScaffolder {
 
 	
 	private AppType app;
-	// Path where scaffold will be located
-	private String path = "AppProject_Scaffold";
 	
 	private Logger logger;
 	
@@ -98,8 +98,7 @@ public class AppScaffolder {
 	public void generate() {
 		System.out.println("Creating Directory!");
 		System.out.println("----------------------------");
-		new File("../" + path).mkdir();
-
+	
 		if (appName != null && packageName != null) {
 
 			logger.log(".... Creating App Scaffold !");

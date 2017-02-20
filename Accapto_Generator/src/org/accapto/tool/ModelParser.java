@@ -48,9 +48,9 @@ public class ModelParser {
 		try {
 			// Read Java Model Schema
 			logger.onlyFile("INFO Reading DSL schema ...");
-			JAXBContext jaxbContext = JAXBContext.newInstance(SCHEMA);
-//			Class[] classes ={AppType.class, ScreenType.class};
-//			JAXBContext jaxbContext = JAXBContext.newInstance(classes);
+	//		JAXBContext jaxbContext = JAXBContext.newInstance(SCHEMA);
+	Class[] classes ={AppType.class, ScreenType.class, ActionType.class, InputType.class, OutputType.class, TransitionType.class};
+			JAXBContext jaxbContext = JAXBContext.newInstance(classes);
 			Unmarshaller jaxbUnmarshaller = jaxbContext.createUnmarshaller();
 
 			// Unmarshall XML file
