@@ -50,9 +50,10 @@ public class AppScaffolder {
 
 	
 	private AppType app;
-	
+	private String appName;
+	private String packageName;
 	private Logger logger;
-	
+
 
 	public AppScaffolder() {
 	}
@@ -64,8 +65,6 @@ public class AppScaffolder {
 		this.logger = logger;
 	}
 
-	private String appName;
-	private String packageName;
 
 	public String getAppName() {
 		return appName;
