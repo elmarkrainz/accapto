@@ -81,10 +81,13 @@ public class ScreenTemplating {
 		// Configuration of the template engine
 		cfg = new Configuration(Configuration.VERSION_2_3_23);
 		try {
-			cfg.setDirectoryForTemplateLoading(new File("templates"));
+			//cfg.setDirectoryForTemplateLoading(new File("templates"));
+			//cfg.setDirectoryForTemplateLoading(new File(this.getClass().getClassLoader().getResource("templates").getFile()));
+			cfg.setClassForTemplateLoading(this.getClass(), "/templates");
+			
 			cfg.setDefaultEncoding("UTF-8");
 			cfg.setTemplateExceptionHandler(TemplateExceptionHandler.RETHROW_HANDLER);
-		} catch (IOException e) {
+		} catch (Exception e){//	(IOException e) {
 			e.printStackTrace();
 		}
 
@@ -276,10 +279,19 @@ public class ScreenTemplating {
 	private void createInput(InputType input) {
 		System.out.println(" INput ");
 		
+		// if checkbox
+		
+		// if radio
+		
+		// if text
+		
 		layoutTemplate.put("name_nospace", input.getName().replaceAll("\\s", ""));
 		layoutTemplate.put("name", input.getName());
 		layoutTemplate.put("description", input.getDescription());
 
+		
+		
+		
 		processTemplating("accapto_input.ftl", layoutTemplate, layoutWriter);
 
 		
@@ -288,12 +300,26 @@ public class ScreenTemplating {
 
 	private void createOutput(OutputType out) {
 		System.out.println(" Output ");
+		
+		
+		
+		
+		
 
 		layoutTemplate.put("name_nospace", out.getName().replaceAll("\\s", ""));
 		layoutTemplate.put("name", out.getName());
 		layoutTemplate.put("description", out.getDescription());
 
-		processTemplating("accapto_output.ftl", layoutTemplate, layoutWriter);
+		if (out.getType().equalsIgnoreCase("text")){
+			processTemplating("accapto_output.ftl", layoutTemplate, layoutWriter);
+		}
+
+		if (out.getType().equalsIgnoreCase("image")){
+			processTemplating("accapto_output_image.ftl", layoutTemplate, layoutWriter);
+		}
+		
+		
+	//	processTemplating("accapto_output.ftl", layoutTemplate, layoutWriter);
 
 	}
 

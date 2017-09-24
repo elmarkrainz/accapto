@@ -116,7 +116,7 @@ public class ManifesterBuilder {
 
 		//attributes for <application>
 		application.setAttribute("android:allowBackup", "true"); //?
-		//  ????application.setAttribute("android:name", appName);
+		application.setAttribute("android:label", appName);
 		application.setAttribute("android:icon", "@drawable/ic_launcher_pons");
 	
 		

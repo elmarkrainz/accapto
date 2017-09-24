@@ -39,7 +39,7 @@ public class AppScaffolder {
 
 	String APP_BUILD_GRADLE_TEXT = ""
 			+ "apply plugin: 'com.android.application'" + "\n android {"
-			+ "\n   compileSdkVersion 23" + "\n  	buildToolsVersion '23.0.2'"
+			+ "\n   compileSdkVersion 23" + "\n  	buildToolsVersion '25.0.0'" //'23.0.2'"
 			+ "\n defaultConfig { " + "\n  applicationId '%s'"
 			+ "\n  minSdkVersion 23" + "\n  targetSdkVersion 24"
 			+ "\n 	versionCode 1" + "\n   versionName '1.0'" + "\n   }"
@@ -54,7 +54,9 @@ public class AppScaffolder {
 	private String packageName;
 	private Logger logger;
 
-
+	
+	
+	
 	public AppScaffolder() {
 	}
 
@@ -63,6 +65,8 @@ public class AppScaffolder {
 		this.appName = this.app.getAppname();
 		this.packageName= this.app.getPackage();
 		this.logger = logger;
+		
+		
 	}
 
 
@@ -103,6 +107,8 @@ public class AppScaffolder {
 			logger.log(".... Creating App Scaffold !");
 
 			String genPath = "../" + this.appName;
+			//String genPath =  this.appName;
+			logger.log("../" + this.appName);
 
 			
 			// -------- Project + settings.gradle + build.gradle

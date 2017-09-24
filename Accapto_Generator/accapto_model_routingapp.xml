@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<p:app appname="WhereAmI-App" package="org.accepto.app.whereami"
+<p:app appname="WhereAmI-App1" package="org.accepto.app.whereami"
 	xmlns:p="org.accapto" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="org.accaptp accapto_model.xsd ">
 	<p:profile>no restrictions</p:profile>
