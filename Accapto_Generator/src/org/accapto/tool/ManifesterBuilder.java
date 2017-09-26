@@ -49,11 +49,15 @@ public class ManifesterBuilder {
 	private String packageName;
 
 	private String appName;
+
+
+	private String genPath;
 	
 	
-	public ManifesterBuilder(String packageString, String appName) {
+	public ManifesterBuilder(String packageString, String appName, String outputPath) {
 		this.packageName=packageString;
 		this.appName=appName;
+		this.genPath = outputPath;
 	}
 	
 	
@@ -117,8 +121,11 @@ public class ManifesterBuilder {
 		//attributes for <application>
 		application.setAttribute("android:allowBackup", "true"); //?
 		application.setAttribute("android:label", appName);
-		application.setAttribute("android:icon", "@drawable/ic_launcher_pons");
-	
+		application.setAttribute("android:icon", "@drawable/ic_a11y_human_web");
+
+		application.setAttribute("android:theme", "@style/AccaptoAppTheme");
+		
+		
 		
 		//TODO alot Todos
 		//TODO: Icon in Projekt kopieren
@@ -169,7 +176,7 @@ public class ManifesterBuilder {
 		//StreamResult result = new StreamResult(new File("../" + appName + "/app/src/main/AndroidManifest.xml"));
 		
 		
-		String manifestPath = "../" + appName +"/app/src/main/" ;
+		String manifestPath = genPath +"/app/src/main/" ;
 		String manifestName = "AndroidManifest.xml" ;
 				
 	

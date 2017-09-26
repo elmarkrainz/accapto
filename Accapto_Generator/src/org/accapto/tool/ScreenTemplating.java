@@ -68,15 +68,17 @@ public class ScreenTemplating {
 	
 	private String appName;
 	private String packageName;
+	private String outputPath;
 
 	
 	
 	
 	public ScreenTemplating(ManifesterBuilder m, ScreenType screen, 
-			String appName, String packageName) {
+			String appName, String packageName, String outputPath) {
 
 		this.appName = appName;
 		this.packageName=packageName;
+		this.outputPath = outputPath;
 
 		// Configuration of the template engine
 		cfg = new Configuration(Configuration.VERSION_2_3_23);
@@ -167,7 +169,7 @@ public class ScreenTemplating {
 	private OutputStreamWriter getOutputFile(String type){
 		
 		
-		String path = "../" + appName + "/app/src/main/";
+		String path = this.outputPath + "/app/src/main/";
 		String packagePath = "java/";
 		String layoutPath = "res/layout/";
 		
@@ -218,7 +220,8 @@ public class ScreenTemplating {
 		basicActivity.put("onCreate", "//oncreate");
 		basicActivity.put("methods", codeWriter.toString());
 
-		processTemplating("basic_activity.ftl", basicActivity, fileWriter);
+		//processTemplating("basic_activity.ftl", basicActivity, fileWriter);
+		processTemplating("accapto_basic_activity_new.ftl", basicActivity, fileWriter);
 
 	}
 

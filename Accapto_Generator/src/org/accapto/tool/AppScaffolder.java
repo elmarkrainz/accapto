@@ -3,8 +3,11 @@ package org.accapto.tool;
 import java.io.BufferedOutputStream;
 import java.io.File;
 import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStream;
 import java.io.PrintWriter;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipInputStream;
@@ -17,7 +20,7 @@ import org.accapto.model.AppType;
 import org.accapto.model.ScreenType;
 
 /**
- * Create Scaffold for android Gradle Project 
+ * Create Scaffold for android Gradle Project
  * 
  * @author EKrainz
  *
@@ -25,37 +28,14 @@ import org.accapto.model.ScreenType;
 public class AppScaffolder {
 
 	
-	// TODO: setting config
-	final static String SETTINGS_GRADLE = "settings.gradle";
 
-	// final static String SETTINGS_GRADLE_text = "include ':app'";
-	final static String SETTINGS_GRADLE_text = "include ':app', ':accessibilitylib'";
-
-	final static String BUILD_GRADLE = "build.gradle";
-	final static String BUILD_GRADLE_TEXT = "buildscript { \n    repositories {\n"
-			+ "jcenter() \n    } \n     dependencies {\n"
-			+ "        classpath 'com.android.tools.build:gradle:2.2.3' \n    } \n}\n"
-			+ "allprojects {" + "\n repositories {\n       jcenter() \n} \n}";
-
-	String APP_BUILD_GRADLE_TEXT = ""
-			+ "apply plugin: 'com.android.application'" + "\n android {"
-			+ "\n   compileSdkVersion 23" + "\n  	buildToolsVersion '25.0.0'" //'23.0.2'"
-			+ "\n defaultConfig { " + "\n  applicationId '%s'"
-			+ "\n  minSdkVersion 23" + "\n  targetSdkVersion 24"
-			+ "\n 	versionCode 1" + "\n   versionName '1.0'" + "\n   }"
-			+ "\n }"
-
-			+ "\n dependencies {" + "\n compile project(':accessibilitylib')"
-			+ "\n }" + "\n ";
-
-	
 	private AppType app;
 	private String appName;
 	private String packageName;
 	private Logger logger;
 
 	
-	
+	private String outputPath;
 	
 	public AppScaffolder() {
 	}
@@ -63,19 +43,31 @@ public class AppScaffolder {
 	public AppScaffolder(AppType app, Logger logger) {
 		this.app = app;
 		this.appName = this.app.getAppname();
-		this.packageName= this.app.getPackage();
+		this.packageName = this.app.getPackage();
 		this.logger = logger;
 		
+		this.outputPath = this.appName;
 		
 	}
-
+	
+	public String getOutputPath(){
+		
+		//eclipse mode
+		//outputPath = "../" + this.appName;
+		
+		return outputPath;
+	}
 
 	public String getAppName() {
 		return appName;
+		
+		
 	}
 
 	public void setAppName(String appName) {
 		this.appName = appName;
+		
+		
 	}
 
 	public String getPackageName() {
@@ -96,49 +88,45 @@ public class AppScaffolder {
 		this.packageName = app.getPackage();
 	}
 
-	
-	
 	public void generate() {
 		System.out.println("Creating Directory!");
 		System.out.println("----------------------------");
-	
+
 		if (appName != null && packageName != null) {
 
 			logger.log(".... Creating App Scaffold !");
 
-			String genPath = "../" + this.appName;
-			//String genPath =  this.appName;
+		
 			logger.log("../" + this.appName);
 
-			
 			// -------- Project + settings.gradle + build.gradle
-			new File(genPath).mkdir();
+			new File(outputPath).mkdir();
 
 			try {
-				PrintWriter printer = new PrintWriter(new File(genPath + "/"
-						+ SETTINGS_GRADLE));
-				printer.write(SETTINGS_GRADLE_text);
+				PrintWriter printer;
+				printer = new PrintWriter(new File(outputPath + "/"
+						+ AccaptoConstants.SETTINGS_GRADLE));
+				printer.write(AccaptoConstants.SETTINGS_GRADLE_text);
 				printer.close();
 				printer = null;
 
 				printer = new PrintWriter(
-						new File(genPath + "/" + BUILD_GRADLE));
-				printer.write(BUILD_GRADLE_TEXT);
+						new File(outputPath + "/" + AccaptoConstants.BUILD_GRADLE));
+				printer.write(AccaptoConstants.BUILD_GRADLE_TEXT);
 				printer.close();
 
 			} catch (IOException e) {
 				e.printStackTrace();
 			}
 
-			
-			//-----------  app folder + build.gradle
-			new File(genPath + "/app").mkdir();
+			// ----------- app folder + build.gradle
+			new File(outputPath + "/app").mkdir();
 
 			try {
-				PrintWriter printer = new PrintWriter(new File(genPath
-						+ "/app/" + BUILD_GRADLE));
+				PrintWriter printer = new PrintWriter(new File(outputPath
+						+ "/app/" + AccaptoConstants.BUILD_GRADLE));
 
-				printer.write(String.format(APP_BUILD_GRADLE_TEXT,
+				printer.write(String.format(AccaptoConstants.APP_BUILD_GRADLE_TEXT,
 						this.packageName));
 				printer.close();
 				printer = null;
@@ -147,53 +135,109 @@ public class AppScaffolder {
 				e.printStackTrace();
 			}
 
-	
-			//--------------- create Manifest
+			// --------------- create Manifest
 			ManifesterBuilder m = new ManifesterBuilder(this.app.getPackage(),
-					this.app.getAppname());
+					this.app.getAppname(), getOutputPath());
 
-			
 			// parse all screens
 			for (ScreenType screen : app.getScreen()) {
-				
+
 				System.out.println("process " + screen.getName());
-		
+
 				ScreenTemplating s = new ScreenTemplating(m, screen,
-						this.appName, this.packageName);
+						this.appName, this.packageName, this.getOutputPath());
 
 			}
 
-
 			try {
-				
+
 				// add a11y settings
-				m.addActivity("org.accapto.accessibility.A12ySettingsActivity");
-				
-				//  gen Manifest
+			// ---TODO REFACKTO 	m.addActivity("org.accapto.accessibility.A12ySettingsActivity");
+
+				// gen Manifest
 				m.generateDocument();
 
-			
 			} catch (ParserConfigurationException e) {
 				e.printStackTrace();
 			} catch (TransformerException e) {
 				e.printStackTrace();
 			}
 
-			//----  add a11y-Lib
-			unZipLib(genPath);
-			
+			// ---- add a11y-Lib
+			// unZipLib(genPath);
+
+			addLibStuff(outputPath);
 
 		}
 
-		//System.out.println(".... App Scaffold created");
+		// System.out.println(".... App Scaffold created");
 		logger.log(".... App Scaffold created");
+	}
+
+	private void addLibStuff(String outputFolder) {
+
+		// ----------- folder + file
+		//new File(outputFolder + "/libtest").mkdir();
+
+		//PrintWriter printer;
+		try {
+			/*printer = new PrintWriter(new File(outputFolder + "/libtest/"
+					+ "libfile.txt"));
+
+			printer.write("libfile content");
+			printer.close();
+			printer = null;
+*/
+
+			
+			String zipFile = "/libs/accessibilitypatternlib.zip";
+			
+			InputStream zipInput = getClass().getResourceAsStream(zipFile);
+			
+			ZipInputStream zis = new ZipInputStream(zipInput);
+			
+
+			ZipEntry ze = zis.getNextEntry();
+
+			while (ze != null) {
+
+				String filePath = outputFolder + File.separator + ze.getName();
+
+				if (!ze.isDirectory()) {
+					// if the entry is a file, extracts it
+
+					BufferedOutputStream bos = new BufferedOutputStream(
+							new FileOutputStream(filePath));
+					byte[] bytesIn = new byte[1024];
+					int read = 0;
+					while ((read = zis.read(bytesIn)) != -1) {
+						bos.write(bytesIn, 0, read);
+					}
+					bos.close();
+
+				} else {
+					// if the entry is a directory, make the directory
+					File dir = new File(filePath);
+					dir.mkdir();
+				}
+
+				ze = zis.getNextEntry();
+			}
+
+			zis.closeEntry();
+			zis.close();
+
+		} catch (Exception e) {// (FileNotFoundException e) {
+
+			e.printStackTrace();
+		}
+
 	}
 
 	private void unZipLib(String outputFolder) {
 
-		// lib TODO more general 
+		// lib TODO more general
 		String zipFile = "a11ylib.zip";
-
 
 		try {
 
@@ -206,34 +250,33 @@ public class AppScaffolder {
 			// get the zip file content
 			ZipInputStream zis = new ZipInputStream(
 					new FileInputStream(zipFile));
+
 			// get the zipped file list entry
 			ZipEntry ze = zis.getNextEntry();
 
 			while (ze != null) {
 
 				String filePath = outputFolder + File.separator + ze.getName();
-		            
-				 if (!ze.isDirectory()) {
-		                // if the entry is a file, extracts it
-		               // System.out.println(ze.getName());
-		               
-		                BufferedOutputStream bos = new BufferedOutputStream(new FileOutputStream(filePath));
-		                byte[] bytesIn = new byte[1024];
-		                int read = 0;
-		                while ((read = zis.read(bytesIn)) != -1) {
-		                    bos.write(bytesIn, 0, read);
-		                }
-		                bos.close();
-		                
-		                
-		            } 
-				 else {
-		                // if the entry is a directory, make the directory
-		                File dir = new File(filePath);
-		                dir.mkdir();
-		         }
-				
-				
+
+				if (!ze.isDirectory()) {
+					// if the entry is a file, extracts it
+					// System.out.println(ze.getName());
+
+					BufferedOutputStream bos = new BufferedOutputStream(
+							new FileOutputStream(filePath));
+					byte[] bytesIn = new byte[1024];
+					int read = 0;
+					while ((read = zis.read(bytesIn)) != -1) {
+						bos.write(bytesIn, 0, read);
+					}
+					bos.close();
+
+				} else {
+					// if the entry is a directory, make the directory
+					File dir = new File(filePath);
+					dir.mkdir();
+				}
+
 				ze = zis.getNextEntry();
 			}
 
@@ -247,24 +290,22 @@ public class AppScaffolder {
 		}
 	}
 
-	
-	
-	
 	public static void main(String[] args) {
 
-	/*	System.out.println("... testing appscaffolder started");
-
-		ModelParser parser = new ModelParser(new File("accapto_model_whereami.xml"));
-		//ModelParser parser = new ModelParser(new  File("accapto_model_routingapp.xml"));
-	   	parser.parseDSL();
-
-	   	
-		AppScaffolder a = new AppScaffolder();
-		a.setApp(parser.getApp());
-		a.generate();
-
-		System.out.println("... testing appscaffolder finished");
-*/
+		/*
+		 * System.out.println("... testing appscaffolder started");
+		 * 
+		 * ModelParser parser = new ModelParser(new
+		 * File("accapto_model_whereami.xml")); //ModelParser parser = new
+		 * ModelParser(new File("accapto_model_routingapp.xml"));
+		 * parser.parseDSL();
+		 * 
+		 * 
+		 * AppScaffolder a = new AppScaffolder(); a.setApp(parser.getApp());
+		 * a.generate();
+		 * 
+		 * System.out.println("... testing appscaffolder finished");
+		 */
 	}
 
 }
