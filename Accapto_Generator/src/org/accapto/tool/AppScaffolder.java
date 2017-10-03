@@ -46,15 +46,15 @@ public class AppScaffolder {
 		this.packageName = this.app.getPackage();
 		this.logger = logger;
 		
-		this.outputPath = this.appName;
-		
+		//this.outputPath = this.appName;
+		//eclipse mode
+		outputPath = "../" + this.appName;
+			
 	}
 	
 	public String getOutputPath(){
 		
-		//eclipse mode
-		//outputPath = "../" + this.appName;
-		
+			
 		return outputPath;
 	}
 

@@ -286,37 +286,41 @@ public class ScreenTemplating {
 		
 		// if radio
 		
-		// if text
+		// if Button
 		
+		// if text
 		layoutTemplate.put("name_nospace", input.getName().replaceAll("\\s", ""));
 		layoutTemplate.put("name", input.getName());
 		layoutTemplate.put("description", input.getDescription());
 
 		
 		
+		if (input.getType().equalsIgnoreCase("text")){
 		
-		processTemplating("accapto_input.ftl", layoutTemplate, layoutWriter);
+			processTemplating("accapto_input.ftl", layoutTemplate, layoutWriter);
 
+		}
+
+		if (input.getType().equalsIgnoreCase("checkbox")){
+			processTemplating("accapto_input_checkbox.ftl", layoutTemplate, layoutWriter);
+		}
 		
-
 	}
 
 	private void createOutput(OutputType out) {
 		System.out.println(" Output ");
 		
-		
-		
-		
-		
-
 		layoutTemplate.put("name_nospace", out.getName().replaceAll("\\s", ""));
 		layoutTemplate.put("name", out.getName());
 		layoutTemplate.put("description", out.getDescription());
+
+		// if text
 
 		if (out.getType().equalsIgnoreCase("text")){
 			processTemplating("accapto_output.ftl", layoutTemplate, layoutWriter);
 		}
 
+		// if image
 		if (out.getType().equalsIgnoreCase("image")){
 			processTemplating("accapto_output_image.ftl", layoutTemplate, layoutWriter);
 		}
