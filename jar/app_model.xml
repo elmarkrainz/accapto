@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<p:app appname="DemoApp" package="org.accapto.demoapp"
+xmlns:p="org.accapto" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="org.accaptp accapto_model.xsd">
+<p:profile>normal</p:profile>
+
+
+<p:screen name="Main">
+	<p:output name="Demo App" description="som text for infos" type="text" /> 
+	<p:input name="search something" description="enter a text" /> 
+	<p:input name="the button" description="click the button" type="button"/> 
+	<p:input name="Check it" description="check Stuff" type="checkbox" /> 
+	<p:input name="Oe3" description="station oe3" type ="radio"/> 
+	<p:input name="FM4" description="station fm4" type ="radio"/> 
+	<p:action function="Peformask" name="Peform a Task" description="template for a function " /> 
+</p:screen>
+
+
+
+<p:screen name="Settings">
+	<p:output name="Settings" description="app settings" type="text" /> 
+</p:screen>
+
+
+<p:screen name="Start">
+	
+	<p:output name="APP DEMO" description="demo app" type="text" /> 
+	<p:transition name="Start " description="start app" target="Main" /> 
+	<p:transition name="Settings" description="modify app settings" target="Settings" /> 
+
+</p:screen>
+
+</p:app>
