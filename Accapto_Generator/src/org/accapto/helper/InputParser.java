@@ -2,6 +2,7 @@ package org.accapto.helper;
 
 import java.io.File;
 
+import org.accapto.tool.AccaptoConstants;
 import org.apache.commons.cli.*;
 
 public class InputParser {
@@ -71,6 +72,9 @@ public class InputParser {
 		
 		Option input = new Option("i", "input", true, "input file path (must be of type .xml)");
 		options.addOption(input);
+		
+		Option version = new Option("ver", "version", true, "Verison of Accapto");
+		options.addOption(version);
 
 	//Option output = new Option("o", "output", true, "path where the app will be created (default: accapto directory)");
 	//	options.addOption(output);
@@ -93,6 +97,7 @@ public class InputParser {
 			cmd = parser.parse(options, args);
 			if (cmd.hasOption("help") || (!cmd.hasOption("input") && !cmd.hasOption("function") && !cmd.hasOption("showfunctions"))){
 				formatter.printHelp("accapto", options);
+				System.out.println("\nversion " + AccaptoConstants.VERSION);
 				System.exit(1);
 				return;
 			} else if (cmd.hasOption("showfunctions")){

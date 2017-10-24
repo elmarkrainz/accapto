@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/AccaptoBaseApp.iml" filepath="$PROJECT_DIR$/AccaptoBaseApp.iml" />
+      <module fileurl="file://$PROJECT_DIR$/accessibilitypatternlib/accessibilitypatternlib.iml" filepath="$PROJECT_DIR$/accessibilitypatternlib/accessibilitypatternlib.iml" />
+      <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
+    </modules>
+  </component>
+</project>

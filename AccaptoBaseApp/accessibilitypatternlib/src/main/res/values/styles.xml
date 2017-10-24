@@ -1,0 +1,213 @@
+<resources>
+
+
+    <style name="WindowTitleBackground">
+        <item name="android:background">@color/colorPrimary</item>
+        <item name="android:textSize">12dp</item>
+        <item name="android:panelColorForeground">@color/global_black_color</item>
+    </style>
+
+
+    <!-- Base application theme. -->
+    <style name="AccaptoAppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
+        <!-- Customize your theme here. -->
+        <item name="colorPrimary">@color/colorPrimary</item>
+        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+        <item name="colorAccent">@color/colorAccent</item>
+
+        <item name="android:textSize">15dp</item>
+        <item name="android:textColor">@android:color/black</item>
+        <item name="android:textColorHint">@color/colorTextHint</item>
+
+        <item name="android:windowTitleSize">35dp</item>
+
+    </style>
+
+
+    <!-- a11y Base application theme. -->
+    <style name="AccaptoAppTheme.HicontrastTheme" parent="AccaptoAppTheme">
+        <!-- Customize your theme here. -->
+        <item name="colorPrimary">@color/colorPrimary_alt</item>
+        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+        <item name="colorAccent">@color/colorAccent</item>
+
+        <item name="android:textSize">25dp</item>
+        <item name="android:textColor">@android:color/black</item>
+
+        <item name="android:windowTitleSize">35dp</item>
+
+
+    </style>
+
+
+    <!--Theme gelb-schwarz-->
+    <!-- Buttons gelb mit scharzer Schrift und
+    Auswahlmöglichkeiten blau mit weißer Schrift.
+    Schwarzer Hintergrund, schwarze Textfarbe; große Schrift -->
+    <style name="AccaptoAppTheme.defect" parent="AccaptoAppTheme">
+        <item name="android:layout_width">fill_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:background">@color/global_black_color</item>
+        <item name="android:textSize">26dp</item>
+        <item name="android:textColor">@android:color/white</item>
+        <item name="android:textStyle">bold</item>
+        <!--Aufruf der weiteren Elemente -->
+        <item name="android:buttonStyle">@style/AccaptoAppTheme.defect.button</item>
+        <item name="android:radioButtonStyle">@style/AccaptoAppTheme.defect.radiobutton</item>
+        <item name="android:buttonStyleToggle">@style/AccaptoAppTheme.defect.togglebutton</item>
+        <item name="android:checkboxStyle">@style/AccaptoAppTheme.defect.checkbox</item>
+        <item name="android:datePickerStyle">@style/AccaptoAppTheme.defect.datepicker</item>
+        <!--Setzt die Größe der Titlebar so, dass man sie lesen kann-->
+        <item name="android:windowTitleSize">35dp</item>
+    </style>
+
+    <!--Definition der anderen Elemente
+        WICHTIG: auf Parent achten, da sonst nichts funktioniert -->
+
+    <!--Style button -->
+    <style name="AccaptoAppTheme.defect.button" parent="@android:style/Widget.Button">
+        <item name="android:background">@drawable/defect_buttonstyle</item>
+
+        <item name="android:textColor">@color/global_black_color</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:typeface">monospace</item>
+        <item name="android:buttonStyle">@style/AccaptoAppTheme.defect.button</item>
+    </style>
+
+    <!--style radiobutton-->
+    <style name="AccaptoAppTheme.defect.radiobutton" parent="@android:style/Widget.CompoundButton.RadioButton">
+        <item name="android:background">@drawable/defect_buttonstyle_other_buttons</item>
+        <item name="android:textColor">@color/global_black_color</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:textSize">26dp</item>
+        <item name="android:typeface">monospace</item>
+        <!-- Die Bilder für den Button hinzufügen -->
+        <item name="android:button">@drawable/blind_defect_radio_button_settings_picture</item>
+        <item name="android:buttonStyle">@style/AccaptoAppTheme.defect.radiobutton</item>
+    </style>
+
+    <!--Style Togglebutton-->
+    <style name="AccaptoAppTheme.defect.togglebutton" parent="@android:style/Widget.Button.Toggle">
+        <item name="android:background">@drawable/defect_buttonstyle_other_buttons</item>
+        <item name="android:textColor">@color/global_black_color</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:textSize">26dp</item>
+        <item name="android:typeface">monospace</item>
+        <item name="android:buttonStyle">@style/AccaptoAppTheme.defect.togglebutton</item>
+    </style>
+
+    <!--Style Checkbox-->
+    <style name="AccaptoAppTheme.defect.checkbox" parent="@android:style/Widget.CompoundButton.CheckBox">
+        <item name="android:background">@drawable/defect_buttonstyle_other_buttons</item>
+        <item name="android:textColor">@color/global_black_color</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:textSize">26dp</item>
+        <item name="android:typeface">monospace</item>
+        <!-- Die Bilder für den Button hinzufügen -->
+        <item name="android:button">@drawable/blind_defect_checkbox_settings_picture</item>
+        <item name="android:buttonStyle">@style/AccaptoAppTheme.defect.checkbox</item>
+    </style>
+
+    <!--Style Datepicker-->
+    <style name="AccaptoAppTheme.defect.datepicker" parent="android:Widget.DatePicker">
+        <item name="android:background">@drawable/defect_buttonstyle_other_buttons</item>
+        <item name="android:textColor">@color/global_white_color</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:textSize">26dp</item>
+        <item name="android:typeface">monospace</item>
+        <item name="android:buttonStyle">@style/AccaptoAppTheme.defect.datepicker</item>
+    </style>
+
+
+
+
+
+    <!--Theme schwarz-weiß-->
+    <!--Für Blinde in schwarz weiß,Buttons weiß-schwarz;
+     mit grauem Hintergrund; große Schrift -->
+
+    <style name="AccaptoAppTheme.blind" parent="AccaptoAppTheme">
+        <item name="android:layout_width">fill_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <!-- Setzten der Hintergrundfarbe bzw Textfarbe mittels Verweis auf eine Farbe in colors.xml-->
+        <item name="android:background">@color/blind_bg_color</item>
+        <item name="android:textColor">@color/global_white_color</item>
+        <!-- größere Schriftgröße für alle Elemente-->
+        <item name="android:textSize">38sp</item>
+        <!--Aufruf des Button, Radiobuttonstyles, Togglebutton, Checkbox, Datepicker die weiter unten deklariert sind -->
+        <item name="android:buttonStyle">@style/AccaptoAppTheme.blind.button</item>
+        <item name="android:radioButtonStyle">@style/AccaptoAppTheme.blind.radiobutton</item>
+        <item name="android:buttonStyleToggle">@style/AccaptoAppTheme.blind.togglebutton</item>
+        <item name="android:checkboxStyle">@style/AccaptoAppTheme.blind.checkbox</item>
+        <item name="android:datePickerStyle">@style/AccaptoAppTheme.blind.datepicker</item>
+        <!--Setzt die Größe der Titlebar so, dass man sie lesen kann-->
+        <item name="android:windowTitleSize">60dp</item>
+    </style>
+
+
+    <!--Deklaration der weiteren Elemente
+     WICHTIG: übeall auf richtigen Parent achten-->
+
+    <!-- Style Button-->
+    <style name="AccaptoAppTheme.blind.button" parent="@android:style/Widget.Button">
+        <!--hier wird eine Vorlage für den Button mittels Verweis aufgerufen. Die Vorlagen speichert man im Ordner drawable(dabei müssen die Namenskonventionen aus Style_readMe.docx beachtet werden) -->
+        <!-- ist hier der gleiche Buttonstyle wie der des Alternativen, da die beiden gleich aussehen sollten-->
+        <item name="android:background">@drawable/alternativ_buttonstyle</item>
+        <item name="android:textColor">#000000</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:typeface">monospace</item>
+        <item name="android:buttonStyle">@style/AccaptoAppTheme.blind.button</item>
+    </style>
+
+    <!--Style Radiobutton -->
+    <style name="AccaptoAppTheme.blind.radiobutton" parent="@android:style/Widget.CompoundButton.RadioButton">
+        <item name="android:background">@drawable/blind_buttonstyle_other_buttons</item>
+        <item name="android:textColor">@color/global_white_color</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:textSize">38sp</item>
+        <item name="android:typeface">monospace</item>
+        <!-- Die Bilder für den Button hinzufügen, dazu wird auf die xml in drawable verwiesen, in der die Bilder gestezt werden
+         Dort sieht man, dass da Bild sich ändert, je nachdem ob der Button ausgwählt ist oder nicht-->
+        <item name="android:button">@drawable/blind_defect_radio_button_settings_picture</item>
+        <item name="android:buttonStyle">@style/AccaptoAppTheme.blind.radiobutton</item>
+    </style>
+
+    <!--Style Togglebutton-->
+    <style name="AccaptoAppTheme.blind.togglebutton" parent="@android:style/Widget.Button.Toggle">
+        <item name="android:background">@drawable/blind_buttonstyle_other_buttons</item>
+        <item name="android:textColor">@color/global_white_color</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:textSize">38sp</item>
+        <item name="android:typeface">monospace</item>
+        <item name="android:buttonStyle">@style/AccaptoAppTheme.blind.togglebutton</item>
+    </style>
+
+    <!--Style Checkbox-->
+    <style name="AccaptoAppTheme.blind.checkbox" parent="@android:style/Widget.CompoundButton.CheckBox">
+        <item name="android:background">@drawable/blind_buttonstyle_other_buttons</item>
+        <item name="android:textColor">@color/global_white_color</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:textSize">38sp</item>
+        <item name="android:typeface">monospace</item>
+        <!-- Die Bilder für den Button hinzufügen, die sich im Ordner drawable befinden -->
+        <item name="android:button">@drawable/blind_defect_checkbox_settings_picture</item>
+        <item name="android:buttonStyle">@style/AccaptoAppTheme.blind.checkbox</item>
+    </style>
+
+    <!--Style Datepicker-->
+    <style name="AccaptoAppTheme.blind.datepicker" parent="android:Widget.DatePicker">
+        <item name="android:background">@drawable/blind_buttonstyle_other_buttons</item>
+        <item name="android:textColor">@color/global_white_color</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:textSize">38sp</item>
+        <item name="android:typeface">monospace</item>
+        <item name="android:buttonStyle">@style/AccaptoAppTheme.blind.datepicker</item>
+    </style>
+
+
+
+
+
+
+
+</resources>

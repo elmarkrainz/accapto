@@ -22,7 +22,8 @@ public class Accapto {
 
 		File inputFile = inputParser.getInputFile();
 		Logger logger = inputParser.getLogger();
-
+		
+		
 		logger.logAnyway("Starting Accessible App Tool");
 		
 		
@@ -39,9 +40,9 @@ public class Accapto {
 				scaffold.generate();
 		
 				logger.logAnyway("\nGenerated app:"); 		
-				logger.logAnyway("  "+ 	scaffold.getAppName());
-				logger.logAnyway("  "+ 	scaffold.getPackageName());
-				logger.logAnyway("  "+ 	scaffold.getOutputPath());		
+				logger.logAnyway("  app name:  "+ 	scaffold.getAppName());
+				logger.logAnyway("   package:  "+ 	scaffold.getPackageName());
+				logger.logAnyway("    folder:  "+ 	scaffold.getOutputPath());		
 				
 				System.out.println("You can open the resulting app project with Android Studio or build it with Gradle.");
 				System.out.println("\nThe aim of accapto is supporting and improving your app development process. Thanks for using Accapto www.accapto.org");				

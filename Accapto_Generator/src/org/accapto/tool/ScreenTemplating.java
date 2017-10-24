@@ -36,6 +36,7 @@ import freemarker.template.TemplateNotFoundException;
 
 /**
  * Create App structure from model
+ * 
  * @author Ekrainz
  *
  */
@@ -47,7 +48,7 @@ public class ScreenTemplating {
 	private static final String LAYOUT = "layout";
 	private static final String ACTIVITY = "Activity";
 	private String name;
-//	private String description;
+	// private String description;
 
 	private boolean isStartingActivity;
 	private ManifesterBuilder manifest;
@@ -65,31 +66,29 @@ public class ScreenTemplating {
 	private Writer layoutWriter;
 	private Writer codeWriter;
 	private Writer fileWriter;
-	
+
 	private String appName;
 	private String packageName;
 	private String outputPath;
 
-	
-	
-	
-	public ScreenTemplating(ManifesterBuilder m, ScreenType screen, 
+	public ScreenTemplating(ManifesterBuilder m, ScreenType screen,
 			String appName, String packageName, String outputPath) {
 
 		this.appName = appName;
-		this.packageName=packageName;
+		this.packageName = packageName;
 		this.outputPath = outputPath;
 
 		// Configuration of the template engine
 		cfg = new Configuration(Configuration.VERSION_2_3_23);
 		try {
-			//cfg.setDirectoryForTemplateLoading(new File("templates"));
-			//cfg.setDirectoryForTemplateLoading(new File(this.getClass().getClassLoader().getResource("templates").getFile()));
+			// cfg.setDirectoryForTemplateLoading(new File("templates"));
+			// cfg.setDirectoryForTemplateLoading(new
+			// File(this.getClass().getClassLoader().getResource("templates").getFile()));
 			cfg.setClassForTemplateLoading(this.getClass(), "/templates");
-			
+
 			cfg.setDefaultEncoding("UTF-8");
 			cfg.setTemplateExceptionHandler(TemplateExceptionHandler.RETHROW_HANDLER);
-		} catch (Exception e){//	(IOException e) {
+		} catch (Exception e) {// (IOException e) {
 			e.printStackTrace();
 		}
 
@@ -99,7 +98,7 @@ public class ScreenTemplating {
 		layoutWriter = new StringWriter();
 		codeWriter = new StringWriter();
 
-		//fileWriter = new OutputStreamWriter(System.out);
+		// fileWriter = new OutputStreamWriter(System.out);
 
 		codeTemplate = new HashMap<String, Object>();
 		layoutTemplate = new HashMap<String, Object>();
@@ -110,11 +109,9 @@ public class ScreenTemplating {
 		name = screen.getName();
 		manifest.addActivity(name, isStartingActivity);
 
-		
-		
 		// create activixy -
 		// create xml layout -
-		// add Manifest entry - 
+		// add Manifest entry -
 
 		list = screen.getContent();
 
@@ -144,19 +141,18 @@ public class ScreenTemplating {
 					TransitionType new_name = (TransitionType) jaxbElem;
 					createTransition(new_name);
 				}
-				
+
 				// subscreen is missing
 			}
 		}
 
 		createLayout();
 		createActivity();
-		
+
 	}
 
 	private void createLayout() {
 
-		
 		fileWriter = getOutputFile(LAYOUT);
 		Map<String, Object> basicLayout = new HashMap<String, Object>();
 		basicLayout.put("additional_layout", layoutWriter.toString());
@@ -165,49 +161,48 @@ public class ScreenTemplating {
 
 	}
 
-	
-	private OutputStreamWriter getOutputFile(String type){
-		
-		
+	private OutputStreamWriter getOutputFile(String type) {
+
 		String path = this.outputPath + "/app/src/main/";
 		String packagePath = "java/";
 		String layoutPath = "res/layout/";
-		
+
 		// File to save the generated file
 		String[] packageSplit = packageName.split("[.]");
 		// Creates String with "org/sfsf/sgfsodeling/" (for the testcase)
-		for(String s: packageSplit) {packagePath += s + "/";}
-		
-				
-		File file= null;
-		
-		if (type.equals(ACTIVITY)){
-			
-			FileStructerBuilder.generateFileWithFullPath(new File(path + packagePath));
+		for (String s : packageSplit) {
+			packagePath += s + "/";
+		}
+
+		File file = null;
+
+		if (type.equals(ACTIVITY)) {
+
+			FileStructerBuilder.generateFileWithFullPath(new File(path
+					+ packagePath));
 			file = new File(path + packagePath + name + ".java");
 		}
-		if (type.equals(LAYOUT)){
-			
-			FileStructerBuilder.generateFileWithFullPath(new File(path + layoutPath));
-			file = new File(path +  layoutPath + name.toLowerCase() + ".xml");
-		}
-	
+		if (type.equals(LAYOUT)) {
 
-		FileOutputStream fileoutput=null;
+			FileStructerBuilder.generateFileWithFullPath(new File(path
+					+ layoutPath));
+			file = new File(path + layoutPath + name.toLowerCase() + ".xml");
+		}
+
+		FileOutputStream fileoutput = null;
 		try {
 			fileoutput = new FileOutputStream(file);
 		} catch (FileNotFoundException e1) {
 			e1.printStackTrace();
 		}
-		
+
 		return new OutputStreamWriter(fileoutput);
 	}
-	
-		
+
 	private void createActivity() {
 
 		fileWriter = this.getOutputFile(ACTIVITY);
-	
+
 		Map<String, Object> basicActivity = new HashMap<String, Object>();
 
 		basicActivity.put("package", packageName);
@@ -220,30 +215,31 @@ public class ScreenTemplating {
 		basicActivity.put("onCreate", "//oncreate");
 		basicActivity.put("methods", codeWriter.toString());
 
-		//processTemplating("basic_activity.ftl", basicActivity, fileWriter);
-		processTemplating("accapto_basic_activity_new.ftl", basicActivity, fileWriter);
+		// processTemplating("basic_activity.ftl", basicActivity, fileWriter);
+		processTemplating("accapto_basic_activity_new.ftl", basicActivity,
+				fileWriter);
 
 	}
 
 	private void createTransition(TransitionType transition) {
 
 		// create
-		//System.out.println(" Transition ");
-		
+		// System.out.println(" Transition ");
+
 		layoutTemplate.put("name_nospace",
 				transition.getName().replaceAll("\\s", ""));
 		layoutTemplate.put("name", transition.getName());
 		layoutTemplate.put("description", transition.getDescription());
-		layoutTemplate.put("function", "goTo"+transition.getTarget());
-			
+		layoutTemplate.put("function", "goTo" + transition.getTarget());
+
 		codeTemplate.put("transition", transition.getTarget());
-		
-		
+
 		try {
 			Template template = cfg.getTemplate("accapto_action_layout.ftl");
 			template.process(layoutTemplate, layoutWriter);
 
-			Template templateCode = cfg.getTemplate("accapto_transition_code.ftl");
+			Template templateCode = cfg
+					.getTemplate("accapto_transition_code.ftl");
 			templateCode.process(codeTemplate, codeWriter);
 
 		} catch (Exception e) {
@@ -253,7 +249,7 @@ public class ScreenTemplating {
 
 	private void createAction(ActionType action) {
 
-		//System.out.println(" Action ");
+		// System.out.println(" Action ");
 
 		// create element in Layout file
 		// - add onclick or else
@@ -280,51 +276,77 @@ public class ScreenTemplating {
 	}
 
 	private void createInput(InputType input) {
-		//System.out.println(" INput ");
-		
+		// System.out.println(" INput ");
+
 		// if checkbox
-		
+
 		// if radio
-		
+
 		// if Button
-		
+
 		// if text
-		layoutTemplate.put("name_nospace", input.getName().replaceAll("\\s", ""));
+		layoutTemplate.put("name_nospace", input.getName()
+				.replaceAll("\\s", ""));
 		layoutTemplate.put("name", input.getName());
 		layoutTemplate.put("description", input.getDescription());
 
-		if (input.getType().equalsIgnoreCase("text")){
-		
+		if (input.getType() != null) {
+
+			if (input.getType().equalsIgnoreCase("text")) {
+				processTemplating("accapto_input.ftl", layoutTemplate,
+						layoutWriter);
+			}
+
+			if (input.getType().equalsIgnoreCase("checkbox")) {
+				processTemplating("accapto_input_checkbox.ftl", layoutTemplate,
+						layoutWriter);
+			}
+
+			if (input.getType().equalsIgnoreCase("radio")) {
+				processTemplating("accapto_input_radio.ftl", layoutTemplate,
+						layoutWriter);
+			}
+			if (input.getType().equalsIgnoreCase("button")) {
+				processTemplating("accapto_input_button.ftl", layoutTemplate,
+						layoutWriter);
+			}
+
+		} else {
+			// backup text input
 			processTemplating("accapto_input.ftl", layoutTemplate, layoutWriter);
 
 		}
 
-		if (input.getType().equalsIgnoreCase("checkbox")){
-			processTemplating("accapto_input_checkbox.ftl", layoutTemplate, layoutWriter);
-		}
-		
 	}
 
 	private void createOutput(OutputType out) {
-	//	System.out.println(" Output ");
-		
+		// System.out.println(" Output ");
+
 		layoutTemplate.put("name_nospace", out.getName().replaceAll("\\s", ""));
 		layoutTemplate.put("name", out.getName());
 		layoutTemplate.put("description", out.getDescription());
 
 		// if text
 
-		if (out.getType().equalsIgnoreCase("text")){
-			processTemplating("accapto_output.ftl", layoutTemplate, layoutWriter);
+		if (out.getType() != null) {
+			if (out.getType().equalsIgnoreCase("text")) {
+				processTemplating("accapto_output.ftl", layoutTemplate,
+						layoutWriter);
+			}
+
+			// if image
+			if (out.getType().equalsIgnoreCase("image")) {
+				processTemplating("accapto_output_image.ftl", layoutTemplate,
+						layoutWriter);
+			}
+		} else {
+			// backup text output
+			processTemplating("accapto_output.ftl", layoutTemplate,
+					layoutWriter);
 		}
 
-		// if image
-		if (out.getType().equalsIgnoreCase("image")){
-			processTemplating("accapto_output_image.ftl", layoutTemplate, layoutWriter);
-		}
-		
-		
-	//	processTemplating("accapto_output.ftl", layoutTemplate, layoutWriter);
+		// processTemplating("accapto_output.ftl", layoutTemplate,
+		// layoutWriter);
 
 	}
 
