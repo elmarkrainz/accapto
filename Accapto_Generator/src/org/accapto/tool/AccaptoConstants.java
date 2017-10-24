@@ -1,5 +1,12 @@
 package org.accapto.tool;
 
+
+/**
+ * Strings for e.g. gradle files
+ * 
+ * @author Ekrainz
+ *
+ */
 public class AccaptoConstants {
 
 	

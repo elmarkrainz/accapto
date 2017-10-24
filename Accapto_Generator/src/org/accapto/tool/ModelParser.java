@@ -1,6 +1,7 @@
 package org.accapto.tool;
 
 import java.io.File;
+import java.io.IOException;
 
 import javax.xml.bind.JAXBContext;
 import javax.xml.bind.JAXBElement;
@@ -17,39 +18,40 @@ import org.accapto.model.*;
  *
  */
 public class ModelParser {
-	
+
 	// the package where the Java Classes are located
 	private static final String SCHEMA = "org.accapto.model";
-	
+
 	// XML file to parse
 	private File xmlFile;
-	
+
 	// Java Model Container
 	private AppType app;
-	
+
 	// Logger
 	private Logger logger;
 
-	
-	public ModelParser(File dslFile, Logger log){
+	public ModelParser(File dslFile, Logger log) {
 		this.xmlFile = dslFile;
 		this.logger = log;
 	}
-	
 
 	/**
 	 * parsing xml input file and returns instance of apptype
-	 * @return 
+	 * 
+	 * @return
 	 */
-	public AppType parseDSL(){
+	public AppType parseDSL() {
 
-
-		logger.log( "INFO Reading DSL file " + xmlFile.getName() + " ("+ xmlFile.length() + " Bytes) ..." );
+		logger.log("INFO Reading DSL file " + xmlFile.getName() + " ("
+				+ xmlFile.length() + " Bytes) ...");
 		try {
 			// Read Java Model Schema
 			logger.onlyFile("INFO Reading DSL schema ...");
-		//	JAXBContext jaxbContext = JAXBContext.newInstance(SCHEMA);
-			Class[] classes ={AppType.class, ScreenType.class, ActionType.class, InputType.class, OutputType.class,ObjectFactory.class, TransitionType.class};
+			// JAXBContext jaxbContext = JAXBContext.newInstance(SCHEMA);
+			Class[] classes = { AppType.class, ScreenType.class,
+					ActionType.class, InputType.class, OutputType.class,
+					ObjectFactory.class, TransitionType.class };
 			JAXBContext jaxbContext = JAXBContext.newInstance(classes);
 			Unmarshaller jaxbUnmarshaller = jaxbContext.createUnmarshaller();
 
@@ -60,7 +62,8 @@ public class ModelParser {
 
 			logger.onlyFile("INFO Creating model of app ...");
 			@SuppressWarnings("unchecked")
-			JAXBElement<AppType> root = (JAXBElement<AppType>) jaxbUnmarshaller.unmarshal(xmlFile);
+			JAXBElement<AppType> root = (JAXBElement<AppType>) jaxbUnmarshaller
+					.unmarshal(xmlFile);
 			app = root.getValue();
 			logger.onlyFile("     " + app);
 
@@ -69,10 +72,10 @@ public class ModelParser {
 			logger.log("APP MODEL: ");
 			logger.log("     Name: " + app.getAppname());
 			logger.log("     Package: " + app.getPackage());
-			//logger.log("     Number of screens: " + app.getScreen().size());
+			// logger.log("     Number of screens: " + app.getScreen().size());
 
 			// Write specified screens to console
-			if (app.getScreen().size()>0){
+			if (app.getScreen().size() > 0) {
 				logger.log("     Screens: ");
 				ScreenType screen = app.getScreen().get(0);
 				for (int i = 0; i < app.getScreen().size(); i++) {
@@ -82,9 +85,14 @@ public class ModelParser {
 				logger.log("--------------------------------------------------");
 			}
 		} catch (JAXBException e) {
-			e.printStackTrace();
+			// System.out.println(e.getLinkedException().getMessage());
+			logger.log(" Error in XML Parsing");
+			logger.log(e.getLinkedException().getMessage());
+
+			// e.printStackTrace();
 		}
-		return app;		
+
+		return app;
 	}
 
 	public AppType getApp() {

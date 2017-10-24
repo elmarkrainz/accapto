@@ -23,6 +23,9 @@ public class Accapto {
 		File inputFile = inputParser.getInputFile();
 		Logger logger = inputParser.getLogger();
 
+		logger.logAnyway("Starting Accessible App Tool");
+		
+		
 		// Parse XML File and create Java Model
 		if (inputFile != null) {
 			ModelParser parser = new ModelParser(inputFile, logger);
@@ -35,8 +38,16 @@ public class Accapto {
 						logger);// , inputParser.getOutputArg());
 				scaffold.generate();
 		
+				logger.logAnyway("\nGenerated app:"); 		
+				logger.logAnyway("  "+ 	scaffold.getAppName());
+				logger.logAnyway("  "+ 	scaffold.getPackageName());
+				logger.logAnyway("  "+ 	scaffold.getOutputPath());		
+				
+				System.out.println("You can open the resulting app project with Android Studio or build it with Gradle.");
+				System.out.println("\nThe aim of accapto is supporting and improving your app development process. Thanks for using Accapto www.accapto.org");				
+				
 			} else {
-				logger.log(" app model is not loaded");
+				logger.logAnyway("App model is not loaded");
 			}
 		}
 

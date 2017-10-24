@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<p:app appname="Routingapp_V8" package="org.accapto.routingapp"
+<p:app appname="Routingapp_V9" package="org.accapto.routingapp"
 xmlns:p="org.accapto" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="org.accaptp accapto_model.xsd">
 <p:profile>normal</p:profile>
 

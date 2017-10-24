@@ -186,7 +186,8 @@ public class ManifesterBuilder {
 		StreamResult result = new StreamResult(new File(f.getAbsolutePath()+"/"+manifestName));
 		transformer.transform(source, result);
 
-		System.out.println(".. Manifest created");
+		//System.out.println(".. Manifest created");
+		
 	
 		// - not active logger.log("File saved!");
 				

@@ -72,11 +72,11 @@ public class InputParser {
 		Option input = new Option("i", "input", true, "input file path (must be of type .xml)");
 		options.addOption(input);
 
-		Option output = new Option("o", "output", true, "path where the app will be created (default: accapto directory)");
-		options.addOption(output);
+	//Option output = new Option("o", "output", true, "path where the app will be created (default: accapto directory)");
+	//	options.addOption(output);
 		
-		Option functions = new Option("s", "showfunctions", false, "show pre-implemented functions");
-		options.addOption(functions);
+	//	Option functions = new Option("s", "showfunctions", false, "show pre-implemented functions");
+	//	options.addOption(functions);
 	}
 	
 	
@@ -113,6 +113,9 @@ public class InputParser {
 		outputArg = cmd.getOptionValue("output");
 		verbose = cmd.hasOption("verbose");
 		logger = new Logger(verbose);
+		
+		
+		
 		
 
 		

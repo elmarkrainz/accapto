@@ -89,12 +89,15 @@ public class AppScaffolder {
 	}
 
 	public void generate() {
-		System.out.println("Creating Directory!");
-		System.out.println("----------------------------");
+		//System.out.println("Creating Directory!");
+		//System.out.println("----------------------------");
+		
+		logger.logAnyway(".. Creating Directory! !");
+
 
 		if (appName != null && packageName != null) {
 
-			logger.log(".... Creating App Scaffold !");
+			logger.logAnyway(".... Creating App Scaffold !");
 
 		
 			logger.log("../" + this.appName);
@@ -142,7 +145,8 @@ public class AppScaffolder {
 			// parse all screens
 			for (ScreenType screen : app.getScreen()) {
 
-				System.out.println("process " + screen.getName());
+				//System.out.println("process " + screen.getName());
+				logger.log("process " + screen.getName());
 
 				ScreenTemplating s = new ScreenTemplating(m, screen,
 						this.appName, this.packageName, this.getOutputPath());
@@ -171,7 +175,7 @@ public class AppScaffolder {
 		}
 
 		// System.out.println(".... App Scaffold created");
-		logger.log(".... App Scaffold created");
+		logger.logAnyway(".... App Scaffold created");
 	}
 
 	private void addLibStuff(String outputFolder) {

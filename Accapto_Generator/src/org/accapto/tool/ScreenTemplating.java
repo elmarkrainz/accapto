@@ -228,7 +228,7 @@ public class ScreenTemplating {
 	private void createTransition(TransitionType transition) {
 
 		// create
-		System.out.println(" Transition ");
+		//System.out.println(" Transition ");
 		
 		layoutTemplate.put("name_nospace",
 				transition.getName().replaceAll("\\s", ""));
@@ -253,7 +253,7 @@ public class ScreenTemplating {
 
 	private void createAction(ActionType action) {
 
-		System.out.println(" Action ");
+		//System.out.println(" Action ");
 
 		// create element in Layout file
 		// - add onclick or else
@@ -280,7 +280,7 @@ public class ScreenTemplating {
 	}
 
 	private void createInput(InputType input) {
-		System.out.println(" INput ");
+		//System.out.println(" INput ");
 		
 		// if checkbox
 		
@@ -293,8 +293,6 @@ public class ScreenTemplating {
 		layoutTemplate.put("name", input.getName());
 		layoutTemplate.put("description", input.getDescription());
 
-		
-		
 		if (input.getType().equalsIgnoreCase("text")){
 		
 			processTemplating("accapto_input.ftl", layoutTemplate, layoutWriter);
@@ -308,7 +306,7 @@ public class ScreenTemplating {
 	}
 
 	private void createOutput(OutputType out) {
-		System.out.println(" Output ");
+	//	System.out.println(" Output ");
 		
 		layoutTemplate.put("name_nospace", out.getName().replaceAll("\\s", ""));
 		layoutTemplate.put("name", out.getName());

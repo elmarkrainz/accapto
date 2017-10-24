@@ -13,7 +13,7 @@ import java.io.File;
 public  class FileStructerBuilder{
 	
 	public static File generateFileWithFullPath(File f){
-		System.out.println( " ... generate file with full path");
+	//	System.out.println( " ... generate file with full path");
 	//	System.out.println(f.toString());
 		
 		if (f.exists()){

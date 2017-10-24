@@ -71,6 +71,28 @@ public class Logger {
 		}
 	}
 	
+	public void logAnyway(String message){
+		
+
+		System.out.println(message);
+
+		
+		message = df.format(new Timestamp(System.currentTimeMillis())) + message;
+		
+		if(logging){
+			try{	
+				PrintWriter writer = new PrintWriter(new FileWriter(logfile, true)); 
+				writer.println(message);
+				writer.close();
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		} else {
+			messages.add(message);
+		}
+	}
+	
+	
 	
 	/**
 	 * Writes log message into file and prints it to standard error, independent of verbose argument.
