@@ -57,8 +57,17 @@
         android:id="@+id/editText"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/toggleButton"
-        android:layout_marginTop="22dp"
 
-        />
+        android:layout_marginTop="21dp"
+        android:layout_below="@+id/checkBoxspeechinput"
+        android:layout_alignStart="@+id/checkBoxspeechinput" />
+
+    <CheckBox
+        android:id="@+id/checkBoxspeechinput"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="activate Speechinput"
+        android:layout_below="@+id/toggleButton"
+        android:layout_alignStart="@+id/toggleButton"
+        android:layout_marginTop="31dp" />
 </RelativeLayout>

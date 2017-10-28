@@ -3,7 +3,7 @@
 
     <style name="WindowTitleBackground">
         <item name="android:background">@color/colorPrimary</item>
-        <item name="android:textSize">12dp</item>
+        <item name="android:textSize">15dp</item>
         <item name="android:panelColorForeground">@color/global_black_color</item>
     </style>
 
@@ -48,21 +48,39 @@
         <item name="android:layout_width">fill_parent</item>
         <item name="android:layout_height">wrap_content</item>
         <item name="android:background">@color/global_black_color</item>
-        <item name="android:textSize">26dp</item>
+        <item name="android:textSize">25dp</item>
         <item name="android:textColor">@android:color/white</item>
         <item name="android:textStyle">bold</item>
+
+        <item name="android:editTextBackground">@color/blind_bg_color</item>
+        <item name="android:editTextColor">@color/global_white_color</item>
+
+
         <!--Aufruf der weiteren Elemente -->
         <item name="android:buttonStyle">@style/AccaptoAppTheme.defect.button</item>
         <item name="android:radioButtonStyle">@style/AccaptoAppTheme.defect.radiobutton</item>
         <item name="android:buttonStyleToggle">@style/AccaptoAppTheme.defect.togglebutton</item>
         <item name="android:checkboxStyle">@style/AccaptoAppTheme.defect.checkbox</item>
         <item name="android:datePickerStyle">@style/AccaptoAppTheme.defect.datepicker</item>
+
+        <item name="android:windowActionBar">@style/AccaptoAppTheme.defect.windowActionBar</item>
+
+
         <!--Setzt die Größe der Titlebar so, dass man sie lesen kann-->
         <item name="android:windowTitleSize">35dp</item>
     </style>
 
     <!--Definition der anderen Elemente
         WICHTIG: auf Parent achten, da sonst nichts funktioniert -->
+
+
+    <!--Style title -->
+    <style name="AccaptoAppTheme.defect.windowActionBar" parent="WindowTitleBackground">
+        <item name="android:background">@color/colorPrimary</item>
+        <item name="android:textSize">55dp</item>
+        <item name="android:panelColorForeground">@color/global_black_color</item>
+    </style>
+
 
     <!--Style button -->
     <style name="AccaptoAppTheme.defect.button" parent="@android:style/Widget.Button">
@@ -117,9 +135,6 @@
         <item name="android:typeface">monospace</item>
         <item name="android:buttonStyle">@style/AccaptoAppTheme.defect.datepicker</item>
     </style>
-
-
-
 
 
     <!--Theme schwarz-weiß-->
@@ -203,11 +218,6 @@
         <item name="android:typeface">monospace</item>
         <item name="android:buttonStyle">@style/AccaptoAppTheme.blind.datepicker</item>
     </style>
-
-
-
-
-
 
 
 </resources>

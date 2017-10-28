@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.content.ActivityNotFoundException;
 import android.content.Intent;
 import android.speech.RecognizerIntent;
+import android.widget.EditText;
 import android.widget.Toast;
 
 import org.accapto.accessibilitypatternlib.R;
@@ -19,9 +20,11 @@ public class SpeechInputHelper {
 
     private Activity activityContext;
 
-    public SpeechInputHelper(Activity activity) {
-        activityContext = activity;
+    private EditText textTarget;
 
+    public SpeechInputHelper(Activity activity, EditText editText) {
+        activityContext = activity;
+        textTarget=editText;
     }
 
     public void startSpeechInput() {
@@ -39,4 +42,7 @@ public class SpeechInputHelper {
     }
 
 
+    public EditText getTextTarget() {
+        return textTarget;
+    }
 }

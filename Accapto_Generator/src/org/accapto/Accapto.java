@@ -16,41 +16,54 @@ import org.accapto.tool.ModelParser;
  */
 public class Accapto {
 
-	public static void main(String[] args) {
+	private InputParser inputParser;
+	private File inputFile;
+	private Logger logger;
+	private AppScaffolder scaffold;
+	private ModelParser parser;
 
-		InputParser inputParser = new InputParser(args);
+	public void start(String[] args) {
 
-		File inputFile = inputParser.getInputFile();
-		Logger logger = inputParser.getLogger();
-		
-		
+		inputParser = new InputParser(args);
+
+		inputFile = inputParser.getInputFile();
+		logger = inputParser.getLogger();
+
 		logger.logAnyway("Starting Accessible App Tool");
-		
-		
+
 		// Parse XML File and create Java Model
 		if (inputFile != null) {
-			ModelParser parser = new ModelParser(inputFile, logger);
+			 parser = new ModelParser(inputFile, logger);
 			parser.parseDSL();
 
 			if (parser.getApp() != null) {
 
 				// create Scaffold
-				AppScaffolder scaffold = new AppScaffolder(parser.getApp(),
-						logger);// , inputParser.getOutputArg());
+				scaffold = new AppScaffolder(parser.getApp(), logger);// ,
+																		// inputParser.getOutputArg());
 				scaffold.generate();
-		
-				logger.logAnyway("\nGenerated app:"); 		
-				logger.logAnyway("  app name:  "+ 	scaffold.getAppName());
-				logger.logAnyway("   package:  "+ 	scaffold.getPackageName());
-				logger.logAnyway("    folder:  "+ 	scaffold.getOutputPath());		
-				
-				System.out.println("You can open the resulting app project with Android Studio or build it with Gradle.");
-				System.out.println("\nThe aim of accapto is supporting and improving your app development process. Thanks for using Accapto www.accapto.org");				
-				
+
+				logger.logAnyway("\nGenerated app:");
+				logger.logAnyway("  app name:  " + scaffold.getAppName());
+				logger.logAnyway("   package:  " + scaffold.getPackageName());
+				logger.logAnyway("    folder:  " + scaffold.getOutputPath());
+
+				System.out
+						.println("You can open the resulting app project with Android Studio or build it with Gradle.");
+				System.out
+						.println("\nThe aim of accapto is supporting and improving your app development process. Thanks for using Accapto www.accapto.org");
+
 			} else {
 				logger.logAnyway("App model is not loaded");
 			}
 		}
+
+	}
+
+	public static void main(String[] args) {
+
+		Accapto accapto = new Accapto();
+		accapto.start(args);
 
 	}
 

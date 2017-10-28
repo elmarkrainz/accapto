@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<p:app appname="Routingapp_V9" package="org.accapto.routingapp"
+<p:app appname="RoutingAapp" package="org.accapto.routingapp"
 xmlns:p="org.accapto" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="org.accaptp accapto_model.xsd">
 <p:profile>normal</p:profile>
 
@@ -42,7 +42,6 @@ xmlns:p="org.accapto" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:
 <p:screen name="Start">
 	
 	<p:output name="ROUTING APP DEMO" description="demo app" type="text" /> 
-
 	<p:transition name="Start " description="select routing target" target="RoutingTarget" /> 
 	<p:transition name="Settings" description="modify app settings" target="Settings" /> 
 </p:screen>

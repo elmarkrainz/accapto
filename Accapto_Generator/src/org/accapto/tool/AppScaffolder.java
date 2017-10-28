@@ -28,7 +28,6 @@ import org.accapto.model.ScreenType;
 public class AppScaffolder {
 
 	
-
 	private AppType app;
 	private String appName;
 	private String packageName;
@@ -36,6 +35,8 @@ public class AppScaffolder {
 
 	
 	private String outputPath;
+	private ManifesterBuilder manifestBuilder;
+	private ScreenTemplating screenTemplating;
 	
 	public AppScaffolder() {
 	}
@@ -47,30 +48,20 @@ public class AppScaffolder {
 		this.logger = logger;
 		
 		this.outputPath = this.appName;
-		//eclipse mode
-		//outputPath = "../" + this.appName;
-		
-		//this.logger.initLog(outputPath);
-		
+	
 		
 	}
 	
 	public String getOutputPath(){
-		
-			
 		return outputPath;
 	}
 
 	public String getAppName() {
 		return appName;
-		
-		
 	}
 
 	public void setAppName(String appName) {
 		this.appName = appName;
-		
-		
 	}
 
 	public String getPackageName() {
@@ -141,8 +132,7 @@ public class AppScaffolder {
 				e.printStackTrace();
 			}
 
-			// --------------- create Manifest
-			ManifesterBuilder m = new ManifesterBuilder(this.app.getPackage(),
+			manifestBuilder = new ManifesterBuilder(this.app.getPackage(),
 					this.app.getAppname(), getOutputPath());
 
 			// parse all screens
@@ -151,7 +141,7 @@ public class AppScaffolder {
 				//System.out.println("process " + screen.getName());
 				logger.log("process " + screen.getName());
 
-				ScreenTemplating s = new ScreenTemplating(m, screen,
+				screenTemplating = new ScreenTemplating(manifestBuilder, screen,
 						this.appName, this.packageName, this.getOutputPath());
 
 			}
@@ -162,7 +152,7 @@ public class AppScaffolder {
 			// ---TODO REFACKTO 	m.addActivity("org.accapto.accessibility.A12ySettingsActivity");
 
 				// gen Manifest
-				m.generateDocument();
+				manifestBuilder.generateDocument();
 
 			} catch (ParserConfigurationException e) {
 				e.printStackTrace();
