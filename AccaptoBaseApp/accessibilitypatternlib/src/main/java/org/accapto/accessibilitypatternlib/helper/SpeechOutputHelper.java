@@ -3,10 +3,12 @@ package org.accapto.accessibilitypatternlib.helper;
 import android.content.Context;
 import android.speech.tts.TextToSpeech;
 
+import org.accapto.accessibilitypatternlib.AccaptoBaseActivity;
+
 import java.util.Locale;
 
 /**
- * Helperclass for easy Text-to-speech output
+ * Helper class for easy Text-to-speech output
  *
  * @author EKrainz
  */
@@ -14,6 +16,7 @@ import java.util.Locale;
 public class SpeechOutputHelper {
 
     private final Context context;
+    private  String initText=null;
     private Locale locale;
     private TextToSpeech t2s;
 
@@ -23,7 +26,7 @@ public class SpeechOutputHelper {
         this.context =c;
         this.locale = getDeviceLocale();
 
-        init(c);
+       // init(c);
     }
 
 
@@ -31,17 +34,42 @@ public class SpeechOutputHelper {
         this.context =c;
         this.locale = l;
 
-        init(c);
+     //   init(c);
+    }
+
+    public SpeechOutputHelper(Context c, String initText) {
+
+        this.context =c;
+        this.locale = getDeviceLocale();
+
+
+       // init(c);
     }
 
 
 
-    private void init(Context c) {
-        t2s = new TextToSpeech(c, new TextToSpeech.OnInitListener() {
+
+
+
+    public void init(String initText){
+        this.initText = initText;
+        init();
+
+    }
+
+
+
+    public void init(){//(Context c) {
+        t2s = new TextToSpeech(this.context, new TextToSpeech.OnInitListener() {
             @Override
             public void onInit(int status) {
                 if (status != TextToSpeech.ERROR) {
                     t2s.setLanguage(SpeechOutputHelper.this.locale);
+
+                    if (initText!= null){
+                        t2s.speak(initText, TextToSpeech.QUEUE_FLUSH, null, null);
+                    }
+
                 }
             }
         });
@@ -53,7 +81,7 @@ public class SpeechOutputHelper {
     }
 
     /**
-     * easy methiod for speech output
+     * easy method for speech output
      * @param text text for speech
      */
     public void speaking(String text) {
@@ -63,6 +91,7 @@ public class SpeechOutputHelper {
 
     public void setLocale(Locale locale){
         this.locale = locale;
+        t2s.setLanguage(locale);
     }
 
 

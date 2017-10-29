@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="org.accapto.accaptobaseapp.SettingActivity">
+
+    <TextView
+        android:id="@+id/textView5"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginStart="12dp"
+        android:layout_marginTop="13dp"
+        android:text="Profile"
+        android:textStyle="bold" />
+
+    <RadioGroup
+        android:id="@+id/radioGroup"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignStart="@+id/textView5"
+        android:layout_below="@+id/textView5">
+
+        <RadioButton
+            android:id="@+id/radioButtonNormal"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignStart="@+id/textView5"
+            android:layout_below="@+id/textView5"
+            android:onClick="onRadioButtonClicked"
+            android:text="no restriction" />
+
+        <RadioButton
+            android:id="@+id/radioButtonLowVision"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignStart="@+id/radioButton2"
+            android:layout_below="@+id/radioButton2"
+            android:onClick="onRadioButtonClicked"
+            android:text="low Vision" />
+        <RadioButton
+            android:id="@+id/radioButtonBlind"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignStart="@+id/radioButton2"
+            android:layout_below="@+id/radioButton2"
+            android:onClick="onRadioButtonClicked"
+            android:text="blind" />
+    </RadioGroup>
+
+
+    <TextView
+        android:id="@+id/textView6"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignStart="@+id/radioGroup"
+        android:layout_below="@+id/radioGroup"
+        android:layout_marginTop="24dp"
+        android:text="Accessibilty Support"
+        android:textStyle="bold" />
+
+    <CheckBox
+        android:id="@+id/checkBoxSpeechInput"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignStart="@+id/textView6"
+        android:layout_below="@+id/textView6"
+        android:text="Speech to Text" />
+
+    <CheckBox
+        android:id="@+id/checkBoxSpeechOutput"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignStart="@+id/checkBoxSpeechInput"
+        android:layout_below="@+id/checkBoxSpeechInput"
+        android:text="Speech Output" />
+
+    <CheckBox
+        android:id="@+id/checkBoxHighContrast"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignStart="@+id/checkBoxSpeechOutput"
+        android:layout_below="@+id/checkBoxSpeechOutput"
+        android:text="High Contrast Profile" />
+
+    <Button
+        android:id="@+id/button4"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_alignStart="@+id/checkBoxHighContrast"
+        android:layout_marginBottom="23dp"
+        android:layout_marginStart="10dp"
+        android:onClick="applySettings"
+        android:text="Apply Settings" />
+</RelativeLayout>

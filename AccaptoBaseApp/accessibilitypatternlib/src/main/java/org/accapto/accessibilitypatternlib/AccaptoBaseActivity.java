@@ -10,6 +10,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.widget.EditText;
 
+import org.accapto.accessibilitypatternlib.helper.AccessibilityPreferences;
 import org.accapto.accessibilitypatternlib.helper.SpeechInputHelper;
 import org.accapto.accessibilitypatternlib.helper.SpeechOutputHelper;
 import org.accapto.accessibilitypatternlib.helper.ThemeChanger;
@@ -23,8 +24,15 @@ import java.util.ArrayList;
 public abstract class AccaptoBaseActivity extends AppCompatActivity {
 
 
-    private SpeechOutputHelper voicer;
-    private SpeechInputHelper speechInput;
+    protected String screenName;
+    protected String screenDescription;
+
+
+    protected SpeechOutputHelper speechOutut;
+    protected SpeechInputHelper speechInput;
+
+
+    protected AccessibilityPreferences accessibilityPreferences;
 
 
     @Override
@@ -40,11 +48,29 @@ public abstract class AccaptoBaseActivity extends AppCompatActivity {
 
     }
 
-    protected SpeechOutputHelper getSpeechOutputHelper() {
-        if (voicer == null) {
-            new SpeechOutputHelper(this);
+
+    protected AccessibilityPreferences getAccessibilityPreferences() {
+
+        if (accessibilityPreferences == null) {
+            accessibilityPreferences = new AccessibilityPreferences(this);
         }
-        return voicer;
+        return accessibilityPreferences;
+    }
+
+
+    protected SpeechOutputHelper getSpeechOutputHelper(String inittext) {
+
+        if (speechOutut == null) {
+            speechOutut = new SpeechOutputHelper(this, inittext);
+        }
+        return speechOutut;
+    }
+
+    protected SpeechOutputHelper getSpeechOutputHelper() {
+        if (speechOutut == null) {
+            speechOutut = new SpeechOutputHelper(this);
+        }
+        return speechOutut;
     }
 
     protected SpeechInputHelper getSpeechInput() {
@@ -77,8 +103,18 @@ public abstract class AccaptoBaseActivity extends AppCompatActivity {
 
     public void initSpeechInput(EditText editText) {
         if (speechInput == null) {
-            speechInput= new SpeechInputHelper(this, editText);
+            speechInput = new SpeechInputHelper(this, editText);
         }
 
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+
+        // if speech output
+        if (getAccessibilityPreferences().isEnableSpeechOutput()) {
+            getSpeechOutputHelper().init(screenName + ",  " + screenDescription);// + " " + screen_desc);
+        }
     }
 }
