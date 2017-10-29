@@ -9,6 +9,7 @@ import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.widget.EditText;
+import android.widget.TextView;
 
 import org.accapto.accessibilitypatternlib.helper.AccessibilityPreferences;
 import org.accapto.accessibilitypatternlib.helper.SpeechInputHelper;
@@ -18,7 +19,15 @@ import org.accapto.accessibilitypatternlib.helper.ThemeChanger;
 import java.util.ArrayList;
 
 /**
- * Created by ekrainz on 11/09/17.
+ * Base class for accessibility support
+ * <p>
+ * has automatic included
+ * - changing theme at runtime
+ * - enable Speechoutput
+ * - enable SpeechInput
+ * <p>
+ * <p>
+ * Created by EKrainz
  */
 
 public abstract class AccaptoBaseActivity extends AppCompatActivity {
@@ -27,10 +36,8 @@ public abstract class AccaptoBaseActivity extends AppCompatActivity {
     protected String screenName;
     protected String screenDescription;
 
-
     protected SpeechOutputHelper speechOutut;
     protected SpeechInputHelper speechInput;
-
 
     protected AccessibilityPreferences accessibilityPreferences;
 
@@ -93,7 +100,10 @@ public abstract class AccaptoBaseActivity extends AppCompatActivity {
                     ArrayList<String> result = data
                             .getStringArrayListExtra(RecognizerIntent.EXTRA_RESULTS);
                     Log.i("SPEECH INPUT", result.get(0));
+
                     speechInput.getTextTarget().setText(result.get(0));
+
+                 //   speechInput.getTextTargetList().get(1).setText(result.get(0));
                 }
                 break;
             }
@@ -101,12 +111,25 @@ public abstract class AccaptoBaseActivity extends AppCompatActivity {
     }
 
 
-    public void initSpeechInput(EditText editText) {
+    public void initSpeechInput(TextView textElement) {
         if (speechInput == null) {
-            speechInput = new SpeechInputHelper(this, editText);
+            speechInput = new SpeechInputHelper(this, textElement);
         }
 
     }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+
+        // if speech output
+        if (getAccessibilityPreferences().isEnableSpeechOutput()) {
+            if (screenName != null ) {
+                getSpeechOutputHelper().speaking(screenName);
+            }
+        }
+    }
+
 
     @Override
     protected void onStart() {
@@ -114,7 +137,9 @@ public abstract class AccaptoBaseActivity extends AppCompatActivity {
 
         // if speech output
         if (getAccessibilityPreferences().isEnableSpeechOutput()) {
-            getSpeechOutputHelper().init(screenName + ",  " + screenDescription);// + " " + screen_desc);
+            if (screenName != null || screenDescription != null) {
+                getSpeechOutputHelper().init(screenName + ",  " + screenDescription);
+            }
         }
     }
 }

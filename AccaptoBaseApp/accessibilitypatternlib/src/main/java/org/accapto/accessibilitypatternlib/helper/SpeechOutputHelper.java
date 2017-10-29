@@ -22,44 +22,36 @@ public class SpeechOutputHelper {
 
 
     public SpeechOutputHelper(Context c) {
-
         this.context =c;
         this.locale = getDeviceLocale();
-
-       // init(c);
     }
 
 
     public SpeechOutputHelper(Context c, Locale l) {
         this.context =c;
         this.locale = l;
-
-     //   init(c);
     }
 
     public SpeechOutputHelper(Context c, String initText) {
-
         this.context =c;
         this.locale = getDeviceLocale();
-
-
-       // init(c);
     }
 
 
-
-
-
-
+    /**
+     * init of the TTS, the init Text is handed  for TTS after init process
+     * @param initText
+     */
     public void init(String initText){
         this.initText = initText;
         init();
 
     }
 
-
-
-    public void init(){//(Context c) {
+    /**
+     * init of the TTS
+     */
+    public void init(){
         t2s = new TextToSpeech(this.context, new TextToSpeech.OnInitListener() {
             @Override
             public void onInit(int status) {
@@ -68,27 +60,35 @@ public class SpeechOutputHelper {
 
                     if (initText!= null){
                         t2s.speak(initText, TextToSpeech.QUEUE_FLUSH, null, null);
-                    }
-
+                   }
                 }
             }
         });
     }
+
 
     @SuppressWarnings("deprecation")
     private Locale getDeviceLocale(){
        return context.getResources().getConfiguration().locale;
     }
 
+
+
+
     /**
      * easy method for speech output
-     * @param text text for speech
+     * @param text output text for TextToSpeech
      */
     public void speaking(String text) {
         t2s.speak(text, TextToSpeech.QUEUE_FLUSH, null, null);
 
     }
 
+
+    /**
+     * Language fpr TextToSpeech output
+     * @param locale
+     */
     public void setLocale(Locale locale){
         this.locale = locale;
         t2s.setLanguage(locale);

@@ -9,6 +9,7 @@ import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.EditText;
+import android.widget.TextView;
 
 import org.accapto.accessibilitypatternlib.AccaptoBaseActivity;
 import org.accapto.accessibilitypatternlib.helper.SpeechOutputHelper;
@@ -77,7 +78,20 @@ public class MainActivity extends AccaptoBaseActivity {
 
         if (isChecked) {
             EditText edt = (EditText) findViewById(R.id.editText);
-            this.initSpeechInput(edt);
+         //   this.initSpeechInput(edt);
+           // this.getSpeechInput().addTextTarget(edt);
+
+
+            TextView txt = (TextView) findViewById(R.id.textView);
+            this.initSpeechInput(txt);
+
+            this.getSpeechInput().addTextTarget(edt);
+            txt.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    MainActivity.this.getSpeechInput().startSpeechInput();
+                }
+            });
 
             edt.setOnClickListener(new View.OnClickListener() {
                 @Override

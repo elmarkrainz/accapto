@@ -10,6 +10,8 @@ import android.widget.Toast;
 
 import org.accapto.accessibilitypatternlib.R;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Locale;
 
 /**
@@ -24,9 +26,15 @@ public class SpeechInputHelper {
     //private EditText textTarget;
     private TextView textTarget;
 
-    public SpeechInputHelper(Activity activity, EditText editText) {
+
+    private List<TextView> textTargetList;
+
+    public SpeechInputHelper(Activity activity, TextView editText) {
         activityContext = activity;
-        textTarget=editText;
+        textTarget = editText;
+
+        textTargetList = new ArrayList<TextView>();
+
     }
 
     public void startSpeechInput() {
@@ -41,6 +49,8 @@ public class SpeechInputHelper {
             Toast.makeText(activityContext.getApplicationContext(), activityContext.getString(R.string.speech_not_supported),
                     Toast.LENGTH_SHORT).show();
         }
+
+
     }
 
     public TextView getTextTarget() {
@@ -48,5 +58,11 @@ public class SpeechInputHelper {
     }
 
 
+    public void addTextTarget(TextView t) {
+        this.textTargetList.add(t);
+    }
 
+    public List<TextView> getTextTargetList() {
+        return textTargetList;
+    }
 }
