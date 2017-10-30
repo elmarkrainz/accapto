@@ -17,6 +17,7 @@ import org.accapto.accessibilitypatternlib.helper.SpeechOutputHelper;
 import org.accapto.accessibilitypatternlib.helper.ThemeChanger;
 
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Base class for accessibility support
@@ -81,8 +82,11 @@ public abstract class AccaptoBaseActivity extends AppCompatActivity {
     }
 
     protected SpeechInputHelper getSpeechInput() {
-
+        if (speechInput == null) {
+            speechInput = new SpeechInputHelper(this);
+        }
         return speechInput;
+
     }
 
 
@@ -101,9 +105,8 @@ public abstract class AccaptoBaseActivity extends AppCompatActivity {
                             .getStringArrayListExtra(RecognizerIntent.EXTRA_RESULTS);
                     Log.i("SPEECH INPUT", result.get(0));
 
-                    speechInput.getTextTarget().setText(result.get(0));
 
-                 //   speechInput.getTextTargetList().get(1).setText(result.get(0));
+                    speechInput.getLastTextTarget().setText(result.get(0));
                 }
                 break;
             }
@@ -111,20 +114,16 @@ public abstract class AccaptoBaseActivity extends AppCompatActivity {
     }
 
 
-    public void initSpeechInput(TextView textElement) {
-        if (speechInput == null) {
-            speechInput = new SpeechInputHelper(this, textElement);
-        }
 
-    }
 
     @Override
     protected void onResume() {
         super.onResume();
 
+
         // if speech output
         if (getAccessibilityPreferences().isEnableSpeechOutput()) {
-            if (screenName != null ) {
+            if (screenName != null) {
                 getSpeechOutputHelper().speaking(screenName);
             }
         }
@@ -142,4 +141,6 @@ public abstract class AccaptoBaseActivity extends AppCompatActivity {
             }
         }
     }
+
+
 }

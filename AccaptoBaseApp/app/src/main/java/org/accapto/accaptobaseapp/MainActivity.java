@@ -12,7 +12,6 @@ import android.widget.EditText;
 import android.widget.TextView;
 
 import org.accapto.accessibilitypatternlib.AccaptoBaseActivity;
-import org.accapto.accessibilitypatternlib.helper.SpeechOutputHelper;
 import org.accapto.accessibilitypatternlib.helper.ThemeChanger;
 
 public class MainActivity extends AccaptoBaseActivity {
@@ -31,7 +30,6 @@ public class MainActivity extends AccaptoBaseActivity {
 
         screenName = "Start";
         screenDescription = "demonstration of Accessibility features";
-
 
 
         btn = (Button) findViewById(R.id.button);
@@ -76,41 +74,44 @@ public class MainActivity extends AccaptoBaseActivity {
 
     private void ToggleSpeechInput(boolean isChecked) {
 
+        TextView txt = (TextView) findViewById(R.id.textView);
+        EditText edt = (EditText) findViewById(R.id.editText);
+        EditText edt2 = (EditText) findViewById(R.id.editText2);
+
+
         if (isChecked) {
-            EditText edt = (EditText) findViewById(R.id.editText);
-         //   this.initSpeechInput(edt);
-           // this.getSpeechInput().addTextTarget(edt);
-
-
-            TextView txt = (TextView) findViewById(R.id.textView);
-            this.initSpeechInput(txt);
-
-            this.getSpeechInput().addTextTarget(edt);
             txt.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    MainActivity.this.getSpeechInput().startSpeechInput();
+                    //    MainActivity.this.getSpeechInput().startSpeechInput();
+                    MainActivity.this.getSpeechInput().startSpeechInput((TextView) v);
                 }
             });
 
             edt.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
+                    MainActivity.this.getSpeechInput().startSpeechInput((TextView) v);
 
-                    MainActivity.this.getSpeechInput().startSpeechInput();
                 }
             });
+
+            edt2.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    MainActivity.this.getSpeechInput().startSpeechInput((TextView) v);
+
+                }
+            });
+
         } else {
-            EditText edt = (EditText) findViewById(R.id.editText);
+
             edt.setOnClickListener(null);
+            edt2.setOnClickListener(null);
+            txt.setOnClickListener(null);
 
         }
     }
-
-
-
-
-
 
 
     public void openSettings(View v) {

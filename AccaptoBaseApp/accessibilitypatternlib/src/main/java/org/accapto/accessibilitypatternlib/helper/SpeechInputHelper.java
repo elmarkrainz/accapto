@@ -23,21 +23,31 @@ public class SpeechInputHelper {
 
     private Activity activityContext;
 
-    //private EditText textTarget;
-    private TextView textTarget;
+    private TextView lastTextTarget;
 
 
-    private List<TextView> textTargetList;
 
-    public SpeechInputHelper(Activity activity, TextView editText) {
+    public SpeechInputHelper(Activity activity) {
         activityContext = activity;
-        textTarget = editText;
-
-        textTargetList = new ArrayList<TextView>();
 
     }
 
-    public void startSpeechInput() {
+
+    private void setLastTextTarget(TextView lastTextTarget) {
+        this.lastTextTarget = lastTextTarget;
+        lastTextTarget.setHint("click for speech to text input");
+    }
+
+
+
+
+    public void startSpeechInput(TextView v) {
+
+       setLastTextTarget(v);
+        startSpeechIntent();
+    }
+
+    private void startSpeechIntent() {
         Intent intent = new Intent(RecognizerIntent.ACTION_RECOGNIZE_SPEECH);
         intent.putExtra(RecognizerIntent.EXTRA_LANGUAGE_MODEL,
                 RecognizerIntent.LANGUAGE_MODEL_FREE_FORM);
@@ -53,16 +63,9 @@ public class SpeechInputHelper {
 
     }
 
-    public TextView getTextTarget() {
-        return textTarget;
-    }
 
 
-    public void addTextTarget(TextView t) {
-        this.textTargetList.add(t);
-    }
-
-    public List<TextView> getTextTargetList() {
-        return textTargetList;
+    public TextView getLastTextTarget() {
+        return lastTextTarget;
     }
 }

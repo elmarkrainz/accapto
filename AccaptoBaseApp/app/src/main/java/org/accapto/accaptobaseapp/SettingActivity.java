@@ -30,7 +30,6 @@ public class SettingActivity extends AccaptoBaseActivity {
         checkBoxSpeechInput = (CheckBox) findViewById(R.id.checkBoxSpeechInput);
         checkBoxSpeechOutput = (CheckBox) findViewById(R.id.checkBoxSpeechOutput);
 
-
     }
 
 

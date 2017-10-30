@@ -38,19 +38,18 @@
         android:id="@+id/radioButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignStart="@+id/checkBox"
-        android:layout_below="@+id/checkBox"
-        android:layout_marginTop="27dp"
-        android:text="RadioButton" />
+        android:text="RadioButton"
+        android:layout_alignBaseline="@+id/checkBox"
+        android:layout_alignBottom="@+id/checkBox"
+        android:layout_centerHorizontal="true" />
 
     <ToggleButton
         android:id="@+id/toggleButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignStart="@+id/radioButton"
-        android:layout_below="@+id/radioButton"
-        android:layout_marginTop="22dp"
-        android:text="ToggleButton" />
+        android:text="ToggleButton"
+        android:layout_above="@+id/checkBox"
+        android:layout_alignStart="@+id/radioButton" />
 
 
     <EditText
@@ -60,16 +59,16 @@
 
         android:layout_marginTop="21dp"
         android:layout_below="@+id/checkBoxspeechinput"
-        android:layout_centerHorizontal="true" />
+        android:layout_alignParentStart="true"
+        android:hint="click for speech input"/>
 
     <CheckBox
         android:id="@+id/checkBoxspeechinput"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="activate Speechinput"
-        android:layout_below="@+id/toggleButton"
-        android:layout_alignStart="@+id/toggleButton"
-        android:layout_marginTop="31dp" />
+        android:layout_centerVertical="true"
+        android:layout_alignStart="@+id/checkBox" />
 
     <Button
         android:id="@+id/button5"
@@ -77,7 +76,16 @@
         android:layout_height="wrap_content"
         android:text="Settings"
         android:onClick="openSettings"
-        android:layout_below="@+id/editText"
+        android:layout_alignParentBottom="true"
         android:layout_alignParentEnd="true"
-        android:layout_marginEnd="11dp" />
+        android:layout_marginBottom="15dp" />
+
+    <EditText
+        android:id="@+id/editText2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="21dp"
+        android:layout_below="@+id/editText"
+        android:layout_alignStart="@+id/editText"
+       />
 </RelativeLayout>
