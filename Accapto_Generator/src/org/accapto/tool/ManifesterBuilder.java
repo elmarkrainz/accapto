@@ -30,7 +30,6 @@ import org.w3c.dom.Element;
  * 
  * add activities
  * 
- * 
  * generates DOM Doc
  * 
  * @author EKrainz, Anja, Johanna
@@ -44,7 +43,7 @@ public class ManifesterBuilder {
 	private Set<String> activities;  // Set or List
 	private List<String> permissions;
 
-	private String startingActivity;
+	private String startingActivity= null;
 
 	private String packageName;
 
@@ -53,6 +52,14 @@ public class ManifesterBuilder {
 
 	private String genPath;
 	
+	
+	private void setStartingActivity(String activityName){
+		if (this.startingActivity == null){
+			System.out.println("start activity "+ activityName);
+			this.startingActivity= activityName;
+		}
+		
+	}
 	
 	public ManifesterBuilder(String packageString, String appName, String outputPath) {
 		this.packageName=packageString;
@@ -67,7 +74,8 @@ public class ManifesterBuilder {
 			this.activities = new HashSet<String>();
 			
 			// set the first activity as default SET or LIST??
-			this.startingActivity = activityName;
+			//this.startingActivity = activityName;
+			setStartingActivity(activityName);
 		}
 		
 		this.activities.add(activityName);
@@ -78,7 +86,8 @@ public class ManifesterBuilder {
 				
 		addActivity(activityName);
 	
-		this.startingActivity = activityName;
+		//this.startingActivity = activityName;
+		setStartingActivity(activityName);
 		
 	}
 

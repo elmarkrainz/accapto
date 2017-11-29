@@ -138,14 +138,15 @@ public class AppScaffolder {
 			// parse all screens
 			for (ScreenType screen : app.getScreen()) {
 
-				//System.out.println("process " + screen.getName());
 				logger.log("process " + screen.getName());
-
 				screenTemplating = new ScreenTemplating(manifestBuilder, screen,
 						this.appName, this.packageName, this.getOutputPath());
 
 			}
+			
+			
 
+			
 			try {
 
 				// add a11y settings

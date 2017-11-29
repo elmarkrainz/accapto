@@ -8,7 +8,7 @@ package org.accapto.tool;
  */
 public class AccaptoConstants {
 
-	public final static String VERSION = "1.2.0";
+	public final static String VERSION = "1.2.1";
 
 	// ----- stettings.gradle
 	public final static String SETTINGS_GRADLE = "settings.gradle";

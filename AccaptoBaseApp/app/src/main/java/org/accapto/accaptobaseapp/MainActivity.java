@@ -5,6 +5,7 @@ import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
@@ -113,7 +114,7 @@ public class MainActivity extends AccaptoBaseActivity {
         }
     }
 
-
+    
     public void openSettings(View v) {
         startActivity(new Intent(this, SettingActivity.class));
     }

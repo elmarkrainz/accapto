@@ -5,9 +5,11 @@ xmlns:p="org.accapto" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:
 <p:profile>normal</p:profile>
 
 <p:screen name="Start">
+	
 	<p:output name="APP DEMO" description="demo app" type="text" /> 
 	<p:transition name="Start " description="start app" target="Main" /> 
 	<p:transition name="Settings" description="modify app settings" target="Settings" /> 
+
 </p:screen>
 
 <p:screen name="Main">
@@ -20,9 +22,12 @@ xmlns:p="org.accapto" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:
 	<p:action function="Peformask" name="Peform a Task" description="template for a function " /> 
 </p:screen>
 
+
+
 <p:screen name="Settings">
 	<p:output name="Settings" description="app settings" type="text" /> 
 </p:screen>
+
 
 
 </p:app>

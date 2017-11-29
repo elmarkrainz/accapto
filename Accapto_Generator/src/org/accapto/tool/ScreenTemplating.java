@@ -92,8 +92,7 @@ public class ScreenTemplating {
 			e.printStackTrace();
 		}
 
-		// consoleWriter = new OutputStreamWriter(System.out);
-
+		
 		// temp Writer
 		layoutWriter = new StringWriter();
 		codeWriter = new StringWriter();
@@ -223,9 +222,6 @@ public class ScreenTemplating {
 
 	private void createTransition(TransitionType transition) {
 
-		// create
-		// System.out.println(" Transition ");
-
 		layoutTemplate.put("name_nospace",
 				transition.getName().replaceAll("\\s", ""));
 		layoutTemplate.put("name", transition.getName());
@@ -249,11 +245,9 @@ public class ScreenTemplating {
 
 	private void createAction(ActionType action) {
 
-		// System.out.println(" Action ");
-
+	
 		// create element in Layout file
 		// - add onclick or else
-
 		layoutTemplate.put("name_nospace",
 				action.getName().replaceAll("\\s", ""));
 		layoutTemplate.put("name", action.getName());
@@ -276,15 +270,7 @@ public class ScreenTemplating {
 	}
 
 	private void createInput(InputType input) {
-		// System.out.println(" INput ");
-
-		// if checkbox
-
-		// if radio
-
-		// if Button
-
-		// if text
+		
 		layoutTemplate.put("name_nospace", input.getName()
 				.replaceAll("\\s", ""));
 		layoutTemplate.put("name", input.getName());
@@ -365,7 +351,6 @@ public class ScreenTemplating {
 			Map<String, Object> root, Writer outputstream) {
 		try {
 			Template temp = cfg.getTemplate(templateString);
-			// temp.process(root, out);
 			temp.process(root, outputstream);
 		} catch (IOException e) {
 			e.printStackTrace();
